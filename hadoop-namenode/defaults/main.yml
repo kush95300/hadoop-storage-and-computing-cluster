@@ -1,0 +1,4 @@
+dir: /hadoop_namenode
+port: 9001
+
+# defaults file for hadoop-namenode

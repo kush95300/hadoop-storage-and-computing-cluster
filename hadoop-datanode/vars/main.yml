@@ -1,0 +1,6 @@
+---
+# vars file for hadoop-datanode
+node: data
+ansible_python_interpreter: /usr/bin/python
+hadoop_id: 1lVMO6gMKQMbzOr7gs9PBqUBFn3Q-pSCy
+jdk_id: 1TGQ-SMZjlJGDeQiiUt01uJZ2jzHs4V8p

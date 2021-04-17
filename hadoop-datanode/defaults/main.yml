@@ -1,0 +1,4 @@
+dir: /hadoop_datanode
+port: 9001
+#ip: "masterip"
+

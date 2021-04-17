@@ -1,0 +1,34 @@
+- name: "Create Namenode Instance"
+  hosts: localhost
+  roles:
+          - role: "kush95300.aws_instance_launcher"
+            vars:
+                    i_name: "Hadoop-Namenode"
+                    grp_tag: namenode
+                    access_pass: AA
+                    secret_pass: JB
+
+- name: "Create Datanode Instances"
+  hosts: localhost
+  roles:
+          - role: "kush95300.aws_instance_launcher"
+            vars:
+                    i_name: "Hadoop-Datanode"
+                    grp_tag: datanode
+                    access_pass: AA
+                    secret_pass: JB
+                    counts: 3
+             
+
+- name: "Create Namenode"
+  hosts: namenode
+  become: yes
+  roles:
+          - role: "hadoop-namenode"
+- name: "Create datanodes"
+  hosts: datanode
+  become: yes
+  roles:
+          - role: "hadoop-datanode"
+            vars:
+                   ip: "{{ groups['namenode'][0] }}"   #master IP

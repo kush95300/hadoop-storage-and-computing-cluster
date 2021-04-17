@@ -1,0 +1,55 @@
+- block:
+     - shell: "ls jdk-java.rpm"
+       changed_when: false
+  rescue:
+     - package:
+         name:
+            - "python3"
+            - "python2-pip"
+     - pip:
+         name: gdown
+         executable: pip3
+     - shell: "/usr/local/bin/gdown --id {{ jdk_id }}"
+
+- block:
+     - shell: "ls"
+     - shell: "ls hadoop.rpm"
+       changed_when: false
+  rescue:
+     - shell: "/usr/local/bin/gdown --id {{ hadoop_id }}"
+- name: "Copy Installing file"
+  copy:
+        src: "{{ item }}"
+        dest: "/root"
+
+  loop:
+                    - "hadoop.rpm"
+                    - "jdk-java.rpm"
+                    
+- name: "Installing Java"
+  package:
+       name: "jdk-java.rpm"
+       state: present
+- name: "Checking hadoop and installing"
+  block:
+       - name: "Checking hadoop"
+         command: "rpm -q hadoop"
+         changed_when: False
+  rescue:
+      - name: "Installing hadoop"
+        command: "rpm -i hadoop.rpm --force"
+        args:
+                chdir: "/root"
+      - name: "Configuring Hadoop Namenode"
+        template:
+              src: "{{ item }}"
+              dest: "/etc/hadoop"
+
+        loop:
+             - "hdfs-site.xml"
+             - "core-site.xml"
+        notify:
+            - "Creating Namenode Directory"
+            - "Format hadoop dir"
+            - "start hadoop"
+

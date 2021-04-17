@@ -1,0 +1,12 @@
+---
+# handlers file for hadoop-namenode
+- name: "Creating Namenode Directory"
+  file:
+       path: "{{ dir }}"
+       state: "directory"
+- name : "Format hadoop dir"
+  command: "hadoop namenode -format"
+  args:
+            stdin: "Y"
+- name: "start hadoop"
+  command: "hadoop-daemon.sh start namenode"
