@@ -1,11 +1,13 @@
 ---
 # tasks file for aws_instance_launcher---
-- package:
+- name: "Installing Dependencies"
+  package:
     name: 
         - "python3"
         - "python2-pip"
     state: present
-- pip:
+- name: "Installing Boto and Boto3 lib"
+  pip:
     name: "{{ item }}"
   loop:
     - boto
