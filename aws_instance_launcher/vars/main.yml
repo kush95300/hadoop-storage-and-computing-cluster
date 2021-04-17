@@ -1,0 +1,7 @@
+---
+# vars file for aws_instance_launcher
+#
+# For Permanent-case ( cannot chaange from playbook, change only when you change here )
+#
+# access_pass: xxxxxxxxxxxxxxx     # here enter your aws acess-key
+# secret_pass: xxxxxxxxxxxxxxx     # here enter your aws  secret key

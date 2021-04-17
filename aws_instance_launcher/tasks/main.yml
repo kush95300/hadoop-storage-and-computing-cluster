@@ -1,0 +1,45 @@
+---
+# tasks file for aws_instance_launcher---
+- package:
+    name: 
+        - "python3"
+        - "python2-pip"
+    state: present
+- pip:
+    name: "{{ item }}"
+  loop:
+    - boto
+    - boto3
+- name: " Creating instance"
+  ec2:
+    instance_tags:
+        Name: "{{ i_name }}"
+        tag: "{{ tag }}"
+    key_name: "{{ key }}"
+    instance_type: "{{ i_type }}"
+    image: "{{ img }}"
+    wait: yes
+    group_id: "{{ sg }}"
+    vpc_subnet_id: "{{ subnet }}"
+    assign_public_ip: yes
+    aws_access_key: "{{ access_pass }}"
+    aws_secret_key: "{{ secret_pass }}"
+    count: "{{ counts }}" 
+    region: "{{ zone }}"
+  register: ip
+
+- block:
+   - name: "updating topic"
+     shell: "grep '{{ grp_tag }}' {{ inventory }}"
+     changed_when: false
+  rescue:
+   - name: "Creating group tag"
+     shell: "echo -e '\n[{{ grp_tag }}]' | cat >> {{ inventory }}"
+   - name: "updating Inventory"
+     lineinfile:
+             dest: "{{ inventory }}"
+             regexp: '^[{{ grp_tag }}]'
+             line: "{{ item ['public_ip'] }} ansible_user=ec2-user ansible_ssh_private_key_file={{ ssh_key_full_path }}  ansible-connection=ssh #{{ tag }}"
+     when: ip.changed == true 
+     loop: "{{ ip.instances }}"
+- meta: refresh_inventory

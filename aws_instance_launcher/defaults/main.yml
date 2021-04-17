@@ -1,0 +1,24 @@
+---
+# defaults file for aws_instance_launcher# Contain Parameters of K8sSlave Instance
+#
+# 
+i_name: "Auto_kubernetes_slave"    # Instance name
+key: "newkey"                      # Instance keyfile name
+i_type: "t2.micro"                 # Instance type
+img: 'ami-08e0ca9924195beba'       # AMI iD
+subnet: 'subnet-3bb8bd53'          # Subnet ID
+sg: 'sg-0a238838d3301e9dc'         # Security Group ID
+counts: 1                          # Instance Count
+zone: 'ap-south-1'                 # Regon
+grp_tag: "k8sSlaveaa"               # Inventory Group Tag ( This is stored in inventory as group tag. Use these tag as host for further automation work )
+inventory: "/etc/ansible/hosts"    # Inventory path
+tag: "k8sSlave"                    # required Special Tag
+ssh_key_full_path: "/home/ec2-user/newkey.pem"    # Ansible ssh private key path
+
+
+# Extra
+
+# For temporary-case ( you can  change from playbook also )
+#
+# access_pass: xxxxxxxxxxxxxxx     # here enter your aws acess-key
+# secret_pass: xxxxxxxxxxxxxxx     # here enter your aws  secret key

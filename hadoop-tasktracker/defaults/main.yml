@@ -1,2 +1,2 @@
----
-# defaults file for hadoop-tasktracker
+port: 9002
+#ip: master_ip 

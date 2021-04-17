@@ -1,7 +1,7 @@
 - name: "Create Namenode Instance"
   hosts: localhost
   roles:
-          - role: "kush95300.aws_instance_launcher"
+          - role: "aws_instance_launcher"
             vars:
                     i_name: "Hadoop-Namenode"
                     grp_tag: namenode
@@ -11,7 +11,7 @@
 - name: "Create Datanode Instances"
   hosts: localhost
   roles:
-          - role: "kush95300.aws_instance_launcher"
+          - role: "aws_instance_launcher"
             vars:
                     i_name: "Hadoop-Datanode"
                     grp_tag: datanode
@@ -19,12 +19,13 @@
                     secret_pass: JB
                     counts: 3
              
-
 - name: "Create Namenode"
   hosts: namenode
   become: yes
   roles:
           - role: "hadoop-namenode"
+
+
 - name: "Create datanodes"
   hosts: datanode
   become: yes
@@ -32,3 +33,40 @@
           - role: "hadoop-datanode"
             vars:
                    ip: "{{ groups['namenode'][0] }}"   #master IP
+
+- name: "Create Jobtracker Instances"
+  hosts: localhost
+  roles:
+          - role: "aws_instance_launcher"
+            vars:
+                    i_name: "Hadoop-Jobtracker"
+                    grp_tag: jobtracker
+                    access_pass: AA
+                    secret_pass: JB
+                    counts: 1
+             
+
+- name: "Create Tasktracker Instances"
+  hosts: localhost
+  roles:
+          - role: "aws_instance_launcher"
+            vars:
+                    i_name: "Hadoop-Tasktracker"
+                    grp_tag: tasktracker
+                    access_pass: AA
+                    secret_pass: JB
+                    counts: 3
+             
+- name: "Create Jobtracker"
+  hosts: jobtracker
+  become: yes
+  roles:
+          - role: "hadoop-jobtracker"
+
+- name: "Create Tasktracker"
+  hosts: tasktracker
+  become: yes
+  roles:
+          - role: "hadoop-tasktracker"
+            vars:
+                   ip: "{{ groups['jobtracker'][0] }}"   #master IP
