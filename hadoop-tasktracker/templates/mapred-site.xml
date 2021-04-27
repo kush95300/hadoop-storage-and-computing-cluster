@@ -6,6 +6,6 @@
 <configuration>
 <property>
 <name>mapred.job.tracker</name>
-<value>{{ ip }}:{{ port }}</value>
+<value>{{ jt_ip }}:{{ jt_port }}</value>
 </property>
 </configuration>

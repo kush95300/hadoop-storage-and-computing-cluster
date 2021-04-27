@@ -1,2 +1,2 @@
-port: 9002
-#ip: master_ip 
+jt_port: 9002
+# jt_ip: master_ip 

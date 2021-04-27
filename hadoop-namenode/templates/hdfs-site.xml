@@ -6,6 +6,6 @@
 <configuration>
 <property>
 <name>dfs.{{ node }}.dir</name>
-<value>{{ dir }}</value>
+<value>{{ nn_dir_path }}</value>
 </property>
 </configuration>

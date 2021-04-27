@@ -1,38 +1,85 @@
-Role Name
-=========
+hadoop-namenode
+================
 
-A brief description of the role goes here.
+This role Create a Hadoop Namenode  and configure it. This all done very quickly within a minutes.You can launch a aws instance and can use this role to setup hadoop namenode.
+
+Hense, function of Role is :
+
+- Create hadoop namenode
+- Create a directory for hadoop namenode to save data.
 
 Requirements
 ------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+There are NO Requirement. ( Only Ansible successfully installed and all variable successfully entered )
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Following parameters are there : 
+
+| Sr.|  PARAMETER | NAME  | USE  | CHANGE PARAMETER AT LOCATION |
+| ------------ | ------------ | ------------ | ------------ | ------------ |
+|1. |   <b>nn_dir_path</b>     (String)  | Hadoop Namenode Directory Path  | It is the path of namenode directory. for e.g.: /namenode | Update it in 'hadoop-namenode' role defaults/main.yml file or in setup.yml file. |
+|2. |   <b>nn_port</b>     (String) ( Required ) | Hadoop Namenode Port  | It is the hadoop namenode or Storage Master Port Number. | Update it in 'hadoop-namenode' role defaults/main.yml file or in setup.yml file. |
+
+
+Use there parameters for better use.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+No Dependencies.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+### To create Namenode
+```sh
+---
+- hosts: namenode
+  become_user: root
+  become: yes
+  roles:
+          - name: "Creating Namenode"
+            role: hadoop-namenode
+```
+### To add with custom port and dir 
+```sh
+---
+- hosts: namenode
+  become_user: root
+  become: yes
+  roles:
+          - name: "Creating Namenode"
+            role: hadoop-namenode
+            vars:
+                    nn_port: 2345
+                    nn_dir_path: /namenode
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```
 
 License
 -------
 
 BSD
 
+Free to use.
+
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+##### Maintained by: Kaushal Soni
+ 
+### Support & Contact
+<b>
+
+Email: Kaushal95300@gmail.com
+
+Linkedin : https://www.linkedin.com/in/sonikaushal
+
+Github : https://github.com/kush95300
+
+Medium : https://kaushalsoni.medium.com  </b>
+
+<br>
+

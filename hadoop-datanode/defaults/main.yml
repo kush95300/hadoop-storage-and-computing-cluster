@@ -1,4 +1,4 @@
-dir: /hadoop_datanode
-port: 9001
-#ip: "masterip"
+dn_dir_path: /hadoop_datanode
+nn_port: 9001
+#nn_ip: "masterip"
 

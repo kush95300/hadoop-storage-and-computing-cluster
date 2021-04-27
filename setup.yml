@@ -17,7 +17,7 @@
   roles:
           - role: "aws_instance_launcher"
             vars:
-                    i_name: "Hadoop-Datanode"
+                    i_name: "Hadoop-Datanode2"
                     grp_tag: datanode
                     access_pass: "{{ access_key }}"
                     secret_pass: "{{ secret_key }}"
@@ -36,7 +36,7 @@
   roles:
           - role: "hadoop-datanode"
             vars:
-                   ip: "{{ groups['namenode'][0] }}"   #master IP
+                   nn_ip: "{{ groups['namenode'][0] }}"   #master IP
 
 - name: "Create Jobtracker Instances"
   hosts: localhost
@@ -45,7 +45,7 @@
   roles:
           - role: "aws_instance_launcher"
             vars:
-                    i_name: "Hadoop-Jobtracker"
+                    i_name: "Hadoop-Jobtracker2"
                     grp_tag: jobtracker
                     access_pass: "{{ access_key }}"
                     secret_pass: "{{ secret_key }}"
@@ -59,7 +59,7 @@
   roles:
           - role: "aws_instance_launcher"
             vars:
-                    i_name: "Hadoop-Tasktracker"
+                    i_name: "Hadoop-Tasktracker2"
                     grp_tag: tasktracker
                     access_pass: "{{ access_key }}"
                     secret_pass: "{{ secret_key }}"
@@ -72,7 +72,7 @@
   roles:
           - role: "aws_instance_launcher"
             vars:
-                    i_name: "Hadoop-Client"
+                    i_name: "Hadoop-Client2"
                     grp_tag: client
                     access_pass: "{{ access_key }}"
                     secret_pass: "{{ secret_key }}"
@@ -92,7 +92,7 @@
   roles:
           - role: "hadoop-tasktracker"
             vars:
-                   ip: "{{ groups['jobtracker'][0] }}"   #master IP
+                   jt_ip: "{{ groups['jobtracker'][0] }}"   #master IP
 
 - name: "Create Client"
   hosts: client
