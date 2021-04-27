@@ -1,3 +1,5 @@
+---
+# tasks file for hadoop-client- block:
 - block:
         - name: "Checking Java Rpm Locally"
           shell: "ls jdk-java.rpm"
@@ -30,6 +32,7 @@
        shell: "/usr/local/bin/gdown --id {{ hadoop_id }}"
        args:
                chdir: "/root"
+                    
 - name: "Installing Java"
   package:
        name: "/root/jdk-java.rpm"
@@ -44,7 +47,7 @@
         command: "rpm -i hadoop.rpm --force"
         args:
                 chdir: "/root"
-      - name: "Configuring Hadoop Jobtracker"
+      - name: "Configuring Hadoop Datanode"
         template:
               src: "{{ item }}"
               dest: "/etc/hadoop"
@@ -52,6 +55,4 @@
         loop:
              - "mapred-site.xml"
              - "core-site.xml"
-        notify:
-            - "start hadoop-jt"
 

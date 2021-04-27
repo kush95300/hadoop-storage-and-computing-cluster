@@ -1,22 +1,26 @@
 - name: "Create Namenode Instance"
+  vars_files:
+          - secret.yml
   hosts: localhost
   roles:
           - role: "aws_instance_launcher"
             vars:
-                    i_name: "Hadoop-Namenode"
+                    i_name: "Hadoop-Namenode2"
                     grp_tag: namenode
-                    access_pass: AA
-                    secret_pass: JB
+                    access_pass: "{{ access_key }}"
+                    secret_pass: "{{ secret_key }}"
 
 - name: "Create Datanode Instances"
   hosts: localhost
+  vars_files:
+          - secret.yml
   roles:
           - role: "aws_instance_launcher"
             vars:
                     i_name: "Hadoop-Datanode"
                     grp_tag: datanode
-                    access_pass: AA
-                    secret_pass: JB
+                    access_pass: "{{ access_key }}"
+                    secret_pass: "{{ secret_key }}"
                     counts: 3
              
 - name: "Create Namenode"
@@ -36,32 +40,51 @@
 
 - name: "Create Jobtracker Instances"
   hosts: localhost
+  vars_files:
+          - secret.yml
   roles:
           - role: "aws_instance_launcher"
             vars:
                     i_name: "Hadoop-Jobtracker"
                     grp_tag: jobtracker
-                    access_pass: AA
-                    secret_pass: JB
+                    access_pass: "{{ access_key }}"
+                    secret_pass: "{{ secret_key }}"
                     counts: 1
              
 
 - name: "Create Tasktracker Instances"
   hosts: localhost
+  vars_files:
+          - secret.yml
   roles:
           - role: "aws_instance_launcher"
             vars:
                     i_name: "Hadoop-Tasktracker"
                     grp_tag: tasktracker
-                    access_pass: AA
-                    secret_pass: JB
+                    access_pass: "{{ access_key }}"
+                    secret_pass: "{{ secret_key }}"
                     counts: 3
              
+- name: "Create Client Instances"
+  hosts: localhost
+  vars_files:
+          - secret.yml
+  roles:
+          - role: "aws_instance_launcher"
+            vars:
+                    i_name: "Hadoop-Client"
+                    grp_tag: client
+                    access_pass: "{{ access_key }}"
+                    secret_pass: "{{ secret_key }}"
+                    counts: 1
+
 - name: "Create Jobtracker"
   hosts: jobtracker
   become: yes
   roles:
           - role: "hadoop-jobtracker"
+            vars:
+                   nn_ip: "{{ groups['namenode'][0] }}"   #master IP
 
 - name: "Create Tasktracker"
   hosts: tasktracker
@@ -70,3 +93,13 @@
           - role: "hadoop-tasktracker"
             vars:
                    ip: "{{ groups['jobtracker'][0] }}"   #master IP
+
+- name: "Create Client"
+  hosts: client
+  become: yes
+  roles:
+          - role: "hadoop-client"
+            vars:
+                    nn_ip: "{{ groups['namenode'][0] }}"
+                    jt_ip: "{{ groups['jobtracker'][0] }}"
+

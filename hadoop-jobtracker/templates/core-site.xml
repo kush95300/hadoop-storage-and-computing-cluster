@@ -5,7 +5,7 @@
 
 <configuration>
 <property>
-<name>mapred.job.tracker</name>
-<value>{{ jt_ip }}:{{ jt_port }}</value>
+<name>fs.default.name</name>
+<value>hdfs://{{ nn_ip }}:{{ nn_port }}</value>
 </property>
 </configuration>

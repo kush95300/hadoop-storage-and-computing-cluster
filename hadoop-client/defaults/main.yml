@@ -1,0 +1,4 @@
+---
+# defaults file for hadoop-client
+jt_port: 9002
+nn_port: 9001
