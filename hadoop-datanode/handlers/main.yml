@@ -2,7 +2,7 @@
 # handlers file for hadoop-datanode
 - name: "Creating Datanode Directory"
   file:
-       path: "{{ dir }}"
+       path: "{{ dn_dir_path }}"
        state: "directory"
 - name: "start hadoop"
   command: "hadoop-daemon.sh start datanode"

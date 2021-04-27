@@ -11,7 +11,7 @@ sg: 'sg-0a238838d3301e9dc'         # Security Group ID
 counts: 1                          # Instance Count
 zone: 'ap-south-1'                 # Regon
 grp_tag: "k8sSlaveaa"               # Inventory Group Tag ( This is stored in inventory as group tag. Use these tag as host for further automation work )
-inventory: "/etc/ansible/hosts"    # Inventory path
+#inventory: "/etc/ansible/hosts"    # Inventory path
 tag: "k8sSlave"                    # required Special Tag
 ssh_key_full_path: "/home/ec2-user/newkey.pem"    # Ansible ssh private key path
 

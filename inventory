@@ -1,0 +1,15 @@
+
+[namenode]
+13.233.130.18 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ec2-user/newkey.pem  ansible-connection=ssh #k8sSlave
+
+[datanode]
+65.0.100.6 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ec2-user/newkey.pem  ansible-connection=ssh #k8sSlave
+
+[jobtracker]
+15.206.73.39 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ec2-user/newkey.pem  ansible-connection=ssh #k8sSlave
+
+[tasktracker]
+13.234.59.2 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ec2-user/newkey.pem  ansible-connection=ssh #k8sSlave
+
+[client]
+65.2.130.73 ansible_user=ec2-user ansible_ssh_private_key_file=/home/ec2-user/newkey.pem  ansible-connection=ssh #k8sSlave

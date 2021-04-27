@@ -9,6 +9,7 @@
                     grp_tag: namenode
                     access_pass: "{{ access_key }}"
                     secret_pass: "{{ secret_key }}"
+                    inventory: "inventory"
 
 - name: "Create Datanode Instances"
   hosts: localhost
@@ -21,7 +22,8 @@
                     grp_tag: datanode
                     access_pass: "{{ access_key }}"
                     secret_pass: "{{ secret_key }}"
-                    counts: 3
+                    inventory: "inventory"
+                    counts: 1
              
 - name: "Create Namenode"
   hosts: namenode
@@ -48,6 +50,7 @@
                     i_name: "Hadoop-Jobtracker2"
                     grp_tag: jobtracker
                     access_pass: "{{ access_key }}"
+                    inventory: "inventory"
                     secret_pass: "{{ secret_key }}"
                     counts: 1
              
@@ -63,7 +66,8 @@
                     grp_tag: tasktracker
                     access_pass: "{{ access_key }}"
                     secret_pass: "{{ secret_key }}"
-                    counts: 3
+                    inventory: "inventory"
+                    counts: 1
              
 - name: "Create Client Instances"
   hosts: localhost
@@ -76,6 +80,7 @@
                     grp_tag: client
                     access_pass: "{{ access_key }}"
                     secret_pass: "{{ secret_key }}"
+                    inventory: "inventory"
                     counts: 1
 
 - name: "Create Jobtracker"

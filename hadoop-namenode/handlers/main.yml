@@ -2,7 +2,7 @@
 # handlers file for hadoop-namenode
 - name: "Creating Namenode Directory"
   file:
-       path: "{{ dir }}"
+       path: "{{ nn_dir_path }}"
        state: "directory"
 - name : "Format hadoop dir"
   command: "hadoop namenode -format"
